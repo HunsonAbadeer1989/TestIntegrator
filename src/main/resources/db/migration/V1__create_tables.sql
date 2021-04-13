@@ -45,16 +45,17 @@ CREATE TABLE IF NOT EXISTS user (
     middle_name VARCHAR(50) COMMENT 'Отчество',
     position    VARCHAR(50) NOT NULL COMMENT 'Должность',
     phone       VARCHAR(50) COMMENT 'Телефон',
-    citizenship_code VARCHAR(50) COMMENT 'Код города',
+    country_code VARCHAR(50) COMMENT 'Код города',
     is_identified TINYINT(50) COMMENT 'Идентификация',
     CONSTRAINT office_id FOREIGN KEY (office_id) REFERENCES office (id),
-    CONSTRAINT citizenship_code FOREIGN KEY (citizenship_code) REFERENCES country (code)
+    CONSTRAINT citizenship_code FOREIGN KEY (country_code) REFERENCES country (code)
     );
 
 COMMENT ON TABLE user IS 'Сотрудник';
 
 CREATE TABLE IF NOT EXISTS document (
     id         INTEGER PRIMARY KEY,
+    doc_name   VARCHAR(50) NOT NULL,
     doc_number VARCHAR(30) NOT NULL,
     doc_date   DATE        NOT NULL,
     code       INT         NOT NULL,
