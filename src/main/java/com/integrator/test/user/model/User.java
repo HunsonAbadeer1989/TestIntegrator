@@ -1,17 +1,17 @@
 package com.integrator.test.user.model;
 
 import com.integrator.test.country.model.Country;
+import com.integrator.test.document.model.Document;
 import com.integrator.test.office.model.Office;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -43,5 +43,8 @@ public class User {
 
     @Column(name = "is_identified")
     private boolean isIdentified;
+
+    @OneToOne(mappedBy="user" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Document document;
 
 }

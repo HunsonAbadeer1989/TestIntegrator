@@ -30,13 +30,6 @@ CREATE TABLE IF NOT EXISTS country (
 
 COMMENT ON TABLE country IS 'Страна';
 
-CREATE TABLE IF NOT EXISTS document_type (
-    code INTEGER PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
-);
-
-COMMENT ON TABLE document_type IS 'Тип документа';
-
 CREATE TABLE IF NOT EXISTS user (
     id          INTEGER COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     office_id   INTEGER NOT NULL COMMENT 'Id офиса',
@@ -54,12 +47,10 @@ CREATE TABLE IF NOT EXISTS user (
 COMMENT ON TABLE user IS 'Сотрудник';
 
 CREATE TABLE IF NOT EXISTS document (
-    id         INTEGER PRIMARY KEY,
     doc_name   VARCHAR(50) NOT NULL,
     doc_number VARCHAR(30) NOT NULL,
     doc_date   DATE        NOT NULL,
     code       INT         NOT NULL,
-    CONSTRAINT doc_code FOREIGN KEY (code) REFERENCES document_type (code),
     CONSTRAINT user_id FOREIGN KEY (`id`) REFERENCES user (id)
 );
 

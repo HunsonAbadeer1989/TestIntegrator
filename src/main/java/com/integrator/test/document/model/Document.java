@@ -1,5 +1,6 @@
 package com.integrator.test.document.model;
 
+import com.integrator.test.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,10 @@ public class Document {
 
     @Column(nullable = false)
     private Integer code;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private User user;
 
 
 

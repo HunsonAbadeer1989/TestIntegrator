@@ -1,16 +1,15 @@
 package com.integrator.test.office.model;
 
 import com.integrator.test.organization.model.Organization;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity(name = "office")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Office {
 
     @Id
