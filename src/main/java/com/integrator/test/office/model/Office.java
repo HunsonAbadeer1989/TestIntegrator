@@ -1,35 +1,71 @@
 package com.integrator.test.office.model;
 
 import com.integrator.test.organization.model.Organization;
-import lombok.*;
+import com.integrator.test.user.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity(name = "office")
+/**
+ * Офис
+ */
+@Entity
+@Table(name = "office")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class Office {
 
+    /**
+     * Первичный ключ
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Название офиса
+     */
+    @Column(nullable = false, length = 50)
+    private String name;
+
+    /**
+     *  Адресс офиса
+     */
+    @Column(nullable = false, length = 50)
+    private String address;
+
+    /**
+     * Телефон офиса
+     */
+    @Column(length = 50)
+    private String phone;
+
+    /**
+     * Статус активности
+     */
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    /**
+     * Поле связи с первичным ключём организации
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id", nullable = false)
     private Organization organization;
 
-    @Column(nullable = false, length = 50)
-    private String name;
+    /**
+     * Сотрудники офиса
+     */
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<User> users;
 
-    @Column(nullable = false, length = 50)
-    private String address;
-
-    @Column(length = 50)
-    private String phone;
-
-    @Column(name = "is_active")
-    private boolean isActive;
 
 }

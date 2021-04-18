@@ -1,4 +1,4 @@
-package com.integrator.test.country.model;
+package com.integrator.test.document.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,15 +8,15 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * Страна сотрудника, граждансво
+ * Тип документа сотрудника
  */
 @Entity
-@Table(name = "country")
+@Table(name = "document_type")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Country {
+public class DocumentType {
 
     /**
      * Первичный ключ
@@ -26,16 +26,15 @@ public class Country {
     private Long id;
 
     /**
-     * Код страны
+     * Название документа
+     */
+    @Column(nullable = false, length = 50)
+    private String name;
+
+    /**
+     * Код документа
      */
     @Column(nullable = false)
     private Integer code;
-
-    /**
-     * Название страны
-     */
-    @Column(nullable = false, length = 100)
-    private String name;
-
 
 }

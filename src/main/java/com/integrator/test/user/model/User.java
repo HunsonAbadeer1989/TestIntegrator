@@ -7,44 +7,78 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name = "user")
+/**
+* Сотрудник
+ */
+@Entity
+@Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class User {
 
+    /**
+     * Первичный ключ
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id", nullable = false)
-    private Office office;
-
+    /**
+     *  Имя сотрудника
+     */
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
+    /**
+     * Фамилия сотрудника
+     */
     @Column(name = "second_name", nullable = false, length = 50)
     private String secondName;
 
+    /**
+     * Отчество сотрудника
+     */
     @Column(name = "middle_name", nullable = false, length = 50)
     private String middleName;
 
+    /**
+     * Должность сотрудника
+     */
     @Column(nullable = false, length = 50)
     private String position;
 
+    /**
+     * Телефон сотрудника
+     */
     @Column(length = 50)
     private String phone;
 
+    /**
+     * Страна сотрудника, гражданство
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
+    /**
+     * Статус подтверждения документа сотрудника
+     */
     @Column(name = "is_identified")
     private boolean isIdentified;
 
-    @OneToOne(mappedBy="user" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    /**
+     * Документ сотрудника
+     */
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Document document;
+
+    /**
+     * Офис сотрудника
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id", nullable = false)
+    private Office office;
 
 }
