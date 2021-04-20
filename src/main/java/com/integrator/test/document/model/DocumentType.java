@@ -11,7 +11,7 @@ import javax.persistence.*;
  * Тип документа сотрудника
  */
 @Entity
-@Table(name = "document_type")
+@Table(name = "doc_type")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,18 +23,19 @@ public class DocumentType {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     /**
      * Название документа
      */
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String name;
 
     /**
      * Код документа
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2)
     private Integer code;
 
 }

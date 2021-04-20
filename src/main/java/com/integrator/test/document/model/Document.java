@@ -21,6 +21,7 @@ public class Document {
      * Первичный ключ
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -35,9 +36,7 @@ public class Document {
     @Column(name = "doc_date", nullable = false)
     private LocalDate docDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private User user;
+
 
     /**
      * Поле связи с типом документа

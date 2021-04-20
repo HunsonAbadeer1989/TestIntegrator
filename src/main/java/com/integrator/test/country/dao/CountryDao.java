@@ -2,7 +2,6 @@ package com.integrator.test.country.dao;
 
 
 import com.integrator.test.country.model.Country;
-import com.integrator.test.country.view.CountryView;
 
 import java.util.List;
 

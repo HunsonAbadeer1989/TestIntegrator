@@ -71,7 +71,8 @@ public class User {
     /**
      * Документ сотрудника
      */
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doc_id")
     private Document document;
 
     /**

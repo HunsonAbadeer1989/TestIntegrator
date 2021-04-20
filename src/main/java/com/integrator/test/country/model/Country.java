@@ -1,11 +1,13 @@
 package com.integrator.test.country.model;
 
+import com.integrator.test.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Страна сотрудника, граждансво
@@ -37,5 +39,7 @@ public class Country {
     @Column(nullable = false, length = 100)
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<User> userSet;
 
 }

@@ -1,7 +1,6 @@
 package com.integrator.test.country.dao;
 
 import com.integrator.test.country.model.Country;
-import com.integrator.test.country.view.CountryView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
