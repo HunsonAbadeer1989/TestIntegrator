@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS office (
 COMMENT ON TABLE office IS 'Офис';
 
 CREATE TABLE IF NOT EXISTS country (
-    code INTEGER PRIMARY KEY NOT NULL,
+    id   INT COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(10) NOT NULL,
     name VARCHAR(100)         NOT NULL
 );
 
@@ -47,6 +48,7 @@ CREATE TABLE IF NOT EXISTS user (
 COMMENT ON TABLE user IS 'Сотрудник';
 
 CREATE TABLE IF NOT EXISTS document (
+    id         INT COMMENT 'Уникальный идентификатор',
     doc_name   VARCHAR(50) NOT NULL,
     doc_number VARCHAR(30) NOT NULL,
     doc_date   DATE        NOT NULL,

@@ -29,7 +29,7 @@ public class Country {
      * Код страны
      */
     @Column(nullable = false)
-    private Integer code;
+    private String code;
 
     /**
      * Название страны
