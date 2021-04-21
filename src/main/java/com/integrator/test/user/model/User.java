@@ -58,7 +58,7 @@ public class User {
     /**
      * Страна сотрудника, гражданство
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
 

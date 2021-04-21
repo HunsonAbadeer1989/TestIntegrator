@@ -39,7 +39,7 @@ public class Country {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<User> userSet;
+//    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+//    private Set<User> userSet;
 
 }

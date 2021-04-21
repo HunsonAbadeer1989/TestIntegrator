@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS user (
     middle_name VARCHAR(50) NOT NULL COMMENT 'Отчество',
     position    VARCHAR(50) NOT NULL COMMENT 'Должность',
     phone       VARCHAR(50) COMMENT 'Телефон',
-    country_id   INTEGER NOT NULL COMMENT 'Код страны',
-    doc_id       INTEGER NOT NULL COMMENT 'Код документа',
+    country_id INTEGER  COMMENT 'Код страны',
+    doc_id       INTEGER  COMMENT 'Код документа',
     is_identified TINYINT(50)  COMMENT 'Идентификация'
     );
 
