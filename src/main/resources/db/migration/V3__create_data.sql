@@ -1,5 +1,5 @@
-INSERT INTO organization (id, name, full_name, inn, kpp, address, phone, is_active) VALUES (1, 'ТАНТК', 'Таганрогский Авиационный Научно-исследовательский Комплекс', '8723459176','8928736511','г. Таганрог,ул. Инструментальная, д. 1, стр 1','+7(495)223-32-22', 1);
-INSERT INTO organization (id, name, full_name, inn, kpp, address, phone, is_active) VALUES (2, 'ОАО "АКБ Сухой"', 'Открытое Акционерное Общество Авиационное Конструкторское Бюро Сухой', '2784572316','3651189287','г. Москва, ул. Столярная, д. 3, стр 23','+7(495)881-33-22', 1);
+INSERT INTO organization (id, name, full_name, inn, kpp, address, phone, is_active) VALUES (1, 'ТАНТК', 'Таганрогский Авиационный Научно-исследовательский Комплекс', '8723459176','8928736511','г. Таганрог,ул. Инструментальная, д. 1, стр 1','+7(495)223-32-22', true);
+INSERT INTO organization (id, name, full_name, inn, kpp, address, phone, is_active) VALUES (2, 'ОАО "АКБ Сухой"', 'Открытое Акционерное Общество Авиационное Конструкторское Бюро Сухой', '2784572316','3651189287','г. Москва, ул. Столярная, д. 3, стр 23','+7(495)881-33-22', true);
 
 INSERT INTO office (id, name, address, phone, is_active, org_id) VALUES (1, 'ЛИК', 'г. Таганрог,ул. Инструментальная, д. 28, стр 2', '+7(495)810-83-76', 1, 1);
 INSERT INTO office (id, name, address, phone, is_active, org_id) VALUES (2, 'БТК', 'г. Таганрог,ул. Инструментальная, д. 4, стр 1', '+7(495)883-11-12', 1, 1);

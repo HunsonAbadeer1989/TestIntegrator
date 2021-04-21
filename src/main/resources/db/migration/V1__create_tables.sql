@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS organization (
     kpp       VARCHAR(10) NOT NULL COMMENT 'Код причины постановки на учет',
     address   VARCHAR(500) NOT NULL COMMENT 'Адресс организации',
     phone     VARCHAR(50) COMMENT 'Телефон организации',
-    is_active  TINYINT
+    is_active  BOOLEAN
     );
 
 COMMENT ON TABLE organization IS 'Организация';
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS office (
     name    VARCHAR(50) COMMENT 'Название офиса',
     address VARCHAR(50) COMMENT 'Адрес офиса',
     phone   VARCHAR(50) COMMENT 'Телефон офиса',
-    is_active TINYINT
+    is_active BOOLEAN
     );
 
 COMMENT ON TABLE office IS 'Офис';
@@ -38,9 +38,9 @@ CREATE TABLE IF NOT EXISTS user (
     middle_name VARCHAR(50) NOT NULL COMMENT 'Отчество',
     position    VARCHAR(50) NOT NULL COMMENT 'Должность',
     phone       VARCHAR(50) COMMENT 'Телефон',
-    country_id INTEGER  COMMENT 'Код страны',
-    doc_id       INTEGER  COMMENT 'Код документа',
-    is_identified TINYINT(50)  COMMENT 'Идентификация'
+    country_id  INTEGER  COMMENT 'Id страны',
+    doc_id      INTEGER  COMMENT 'Id документа',
+    is_identified BOOLEAN  COMMENT 'Идентификация'
     );
 
 COMMENT ON TABLE user IS 'Сотрудник';

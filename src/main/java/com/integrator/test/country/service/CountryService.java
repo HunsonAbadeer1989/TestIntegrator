@@ -11,12 +11,14 @@ public interface CountryService {
 
     /**
      * Получить список стран
+     *
      * @return
      */
     List<CountryView> getAllCountries();
 
     /**
      * Получить страну по коду
+     *
      * @param code
      * @return
      */

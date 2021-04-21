@@ -3,12 +3,15 @@ package com.integrator.test.user.model;
 import com.integrator.test.country.model.Country;
 import com.integrator.test.document.model.Document;
 import com.integrator.test.office.model.Office;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 /**
-* Сотрудник
+ * Сотрудник
  */
 @Entity
 @Table(name = "user")
@@ -26,7 +29,7 @@ public class User {
     private Long id;
 
     /**
-     *  Имя сотрудника
+     * Имя сотрудника
      */
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
@@ -66,7 +69,7 @@ public class User {
      * Статус подтверждения документа сотрудника
      */
     @Column(name = "is_identified")
-    private boolean isIdentified;
+    private Boolean isIdentified;
 
     /**
      * Документ сотрудника

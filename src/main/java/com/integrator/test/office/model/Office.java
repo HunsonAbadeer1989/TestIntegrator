@@ -50,7 +50,7 @@ public class Office {
      * Статус активности
      */
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     /**
      * Поле связи с первичным ключём организации
