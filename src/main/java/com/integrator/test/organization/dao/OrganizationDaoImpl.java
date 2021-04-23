@@ -1,6 +1,5 @@
 package com.integrator.test.organization.dao;
 
-import com.integrator.test.country.model.Country;
 import com.integrator.test.organization.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -71,6 +71,7 @@ public class OrganizationDaoImpl implements OrganizationDao{
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public void updateOrganization(Long id, Organization organization) {
         Organization newOrganization = loadById(id);
         newOrganization.setAddress(organization.getAddress());
@@ -84,6 +85,7 @@ public class OrganizationDaoImpl implements OrganizationDao{
         if (organization.getIsActive() != null) {
             newOrganization.setIsActive(organization.getIsActive());
         }
+        entityManager.flush();
     }
 
     /**
