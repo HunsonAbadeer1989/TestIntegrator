@@ -29,15 +29,13 @@ public interface OrganizationService {
     /**
      * Добавление новой организации
      * @param organizationView - организация
-     * @return результат ResultView
      */
-    ResultEntity saveOrganization(OrganizationView organizationView);
+    void saveOrganization(OrganizationView organizationView);
 
     /**
      * Изменение существующей организации
      * @param id - идентификатор организации
      * @param organizationView - организация
-     * @return результат ResultView
      */
-    ResultEntity updateOrganization(Long id ,OrganizationView organizationView);
+    void updateOrganization(Long id ,OrganizationView organizationView);
 }

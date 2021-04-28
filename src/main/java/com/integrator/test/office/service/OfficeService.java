@@ -4,7 +4,6 @@ import com.integrator.test.office.view.OfficeForSaveView;
 import com.integrator.test.office.view.OfficeListInView;
 import com.integrator.test.office.view.OfficeListOutView;
 import com.integrator.test.office.view.OfficeView;
-import com.integrator.test.organization.view.ResultEntity;
 
 import java.util.List;
 
@@ -31,14 +30,12 @@ public interface OfficeService {
      * Обновление офиса
      * @param id - новый офис
      * @param officeView - новый офис
-     * @return ResultEntity
      */
-    ResultEntity updateOffice(Long id , OfficeView officeView);
+    void updateOffice(Long id , OfficeView officeView);
 
     /**
      * Сохранение нового офиса
      * @param officeForSaveView - офис для сохранения в базе
-     * @return ResultEntity
      */
-    ResultEntity saveOffice(OfficeForSaveView officeForSaveView);
+    void saveOffice(OfficeForSaveView officeForSaveView);
 }

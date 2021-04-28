@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Size;
 
-@Api(value = "Офис")
+@Api(value = "Представление офиса")
 @Getter
 @Setter
 public class OfficeView {

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @ApiModel(value = "Вид офиса для сохранения в базу данных")
@@ -16,10 +18,12 @@ import javax.validation.constraints.Size;
 @Setter
 public class OfficeForSaveView {
 
+    @NotNull(message = "OrgId can't be null")
     @ApiModelProperty(value = "Уникальный идентификатор организации")
     private Long orgId;
 
     @Size(max = 50)
+    @NotEmpty
     @ApiModelProperty(value = "Название офиса")
     private String name;
 

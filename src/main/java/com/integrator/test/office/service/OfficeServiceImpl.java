@@ -8,13 +8,9 @@ import com.integrator.test.office.view.OfficeListInView;
 import com.integrator.test.office.view.OfficeListOutView;
 import com.integrator.test.office.view.OfficeView;
 import com.integrator.test.organization.dao.OrganizationDao;
-import com.integrator.test.organization.model.Organization;
-import com.integrator.test.organization.service.OrganizationService;
-import com.integrator.test.organization.view.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -48,8 +44,7 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     public List<OfficeListOutView> getOfficesList(OfficeListInView officeListInView) {
-        Organization organizationById = organizationDao.loadById(officeListInView.getOrgId());
-        List<Office> offices = officeDao.loadOfficeList(organizationById,
+        List<Office> offices = officeDao.loadOfficeList(officeListInView.getOrgId(),
                 officeListInView.getName(),
                 officeListInView.getPhone(),
                 officeListInView.getIsActive());
@@ -60,25 +55,16 @@ public class OfficeServiceImpl implements OfficeService {
      * {@inheritDoc}
      */
     @Override
-    public ResultEntity updateOffice(Long id, OfficeView officeView) {
+    public void updateOffice(Long id, OfficeView officeView) {
         officeDao.updateOffice(id, officeView);
-        return new ResultEntity("success");
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ResultEntity saveOffice(OfficeForSaveView office) {
-        Organization organization = organizationDao.loadById(office.getOrgId());
-        Office newOffice = new Office(
-                office.getName(),
-                office.getAddress(),
-                office.getPhone(),
-                office.getIsActive(),
-                organization);
-
-        officeDao.save(newOffice);
-        return new ResultEntity("success");
+    public void saveOffice(OfficeForSaveView office) {
+        Office saveOffice = mapperFacade.map(office, Office.class);
+        officeDao.save(saveOffice, office.getOrgId());
     }
 }

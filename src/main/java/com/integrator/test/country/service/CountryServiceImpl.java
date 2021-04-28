@@ -42,7 +42,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     @Transactional(readOnly = true)
     public CountryView getCountryByCode(String code) {
-//        List<Country> listCountries = countryDao.loadByCode(code);
         Country countryByCode = countryDao.loadByCode(code);
         return mapperFacade.map(countryByCode, CountryView.class);
     }

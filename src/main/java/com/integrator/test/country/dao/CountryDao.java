@@ -25,4 +25,8 @@ public interface CountryDao {
      */
     Country loadByCode(String code);
 
+    Country getCountryById(Long id);
+
+
+
 }

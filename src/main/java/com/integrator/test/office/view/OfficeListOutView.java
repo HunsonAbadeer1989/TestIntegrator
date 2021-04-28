@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class OfficeListOutView {
 
+
     @ApiModelProperty(value = "Уникальный идентификатор офиса")
     private Long Id;
 

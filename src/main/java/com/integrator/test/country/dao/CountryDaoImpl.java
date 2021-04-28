@@ -52,4 +52,14 @@ public class CountryDaoImpl implements CountryDao {
         return query.getSingleResult();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Country getCountryById(Long id){
+        String query = "SELECT c FROM Country c WHERE id=:id";
+        TypedQuery<Country> all = entityManager.createQuery(query, Country.class);
+        return all.getSingleResult();
+    }
+
 }

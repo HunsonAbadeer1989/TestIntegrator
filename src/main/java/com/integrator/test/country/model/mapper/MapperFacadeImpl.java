@@ -41,4 +41,6 @@ public class MapperFacadeImpl implements MapperFacade {
     public <S, D> List<D> mapAsList(Iterable<S> source, Class<D> destinationClass) {
         return mapperFactory.getMapperFacade().mapAsList(source, destinationClass);
     }
+
+
 }

@@ -6,7 +6,6 @@ import com.integrator.test.organization.model.Organization;
 import com.integrator.test.organization.view.OrganizationListInView;
 import com.integrator.test.organization.view.OrganizationListOutView;
 import com.integrator.test.organization.view.OrganizationView;
-import com.integrator.test.organization.view.ResultEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +53,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public ResultEntity saveOrganization(OrganizationView organizationView) {
+    public void saveOrganization(OrganizationView organizationView) {
         Organization newOrg = new Organization(
                 organizationView.getName(),
                 organizationView.getFullName(),
@@ -65,7 +64,6 @@ public class OrganizationServiceImpl implements OrganizationService {
                 organizationView.getIsActive()
         );
         organizationDao.save(newOrg);
-        return new ResultEntity("success");
     }
 
     /**
@@ -73,7 +71,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public ResultEntity updateOrganization(Long id ,OrganizationView organizationView) {
+    public void updateOrganization(Long id ,OrganizationView organizationView) {
         Organization newOrg = new Organization(
                 organizationView.getName(),
                 organizationView.getFullName(),
@@ -84,7 +82,6 @@ public class OrganizationServiceImpl implements OrganizationService {
                 organizationView.getIsActive()
         );
         organizationDao.updateOrganization(organizationView.getId(), newOrg);
-        return new ResultEntity("success");
     }
 
 }
