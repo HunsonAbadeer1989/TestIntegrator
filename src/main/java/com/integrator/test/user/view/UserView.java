@@ -1,5 +1,6 @@
 package com.integrator.test.user.view;
 
+import com.integrator.test.user.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,10 @@ import javax.validation.constraints.Size;
 @Setter
 public class UserView {
 
-    @ApiModelProperty(value = "Офис сотрудника")
+    @ApiModelProperty(value = "Id сотрудника")
+    private Long id;
+
+    @ApiModelProperty(value = "Уникальный идентификатор офиса сотрудника")
     private Long officeId;
 
     @Size(max = 50)
@@ -39,18 +43,22 @@ public class UserView {
     @ApiModelProperty(value = "Телефон сотрудника")
     private String phone;
 
-    @ApiModelProperty(value = "Название документа сотрудника")
+    @ApiModelProperty(value = "Название документа сотрудника", name = "doc_name")
     private String docName;
 
-    @ApiModelProperty(value = "Номер документа сотрудника")
+    @ApiModelProperty(value = "Номер документа сотрудника", name = "doc_number")
     private String docNumber;
 
-    @ApiModelProperty(value = "Дата выдачи документа сотруднику")
+    @ApiModelProperty(value = "Дата выдачи документа сотруднику", name = "doc_date")
     private String docDate;
+
+    @ApiModelProperty(value = "Код документа")
+    private String docCode;
 
     @ApiModelProperty(value = "Код страны сотрудника")
     private String citizenshipCode;
 
     @ApiModelProperty(value = "Статус идентификации сотрудника")
     private Boolean isIdentified;
+
 }

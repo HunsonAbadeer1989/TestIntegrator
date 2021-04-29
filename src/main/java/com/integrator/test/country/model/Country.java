@@ -1,13 +1,14 @@
 package com.integrator.test.country.model;
 
-import com.integrator.test.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Страна сотрудника, граждансво
@@ -21,16 +22,10 @@ import java.util.Set;
 public class Country {
 
     /**
-     * Первичный ключ
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    /**
      * Код страны
      */
-    @Column(nullable = false)
+    @Id
+    @Column(nullable = false, unique = true)
     private String code;
 
     /**
@@ -38,8 +33,5 @@ public class Country {
      */
     @Column(nullable = false, length = 100)
     private String name;
-
-//    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
-//    private Set<User> userSet;
 
 }

@@ -13,20 +13,16 @@ public interface CountryDao {
     /**
      * Получить все страны
      *
-     * @return
+     * @return  List<Country>
      */
     List<Country> all();
 
     /**
      * Получить название страны по коду
      *
-     * @param code
-     * @return
+     * @param code - код страны
+     * @return Country
      */
     Country loadByCode(String code);
-
-    Country getCountryById(Long id);
-
-
 
 }

@@ -1,8 +1,8 @@
 package com.integrator.test.user.dao;
 
-import com.integrator.test.office.model.Office;
+import com.integrator.test.document.model.Document;
 import com.integrator.test.user.model.User;
-import com.integrator.test.user.view.UserListOutView;
+import com.integrator.test.user.view.UserView;
 
 import java.util.List;
 
@@ -15,22 +15,35 @@ public interface UserDao {
      * Получение списока сотрудников по фильтру
      *
      * @param id - идентификатор сотрудника
-     * @return UserUpdateView
+     * @return User
      */
     User getUserById(Long id);
 
     /**
      * Получение списока сотрудников по фильтру
      *
-     * @param officeById - Офис сотрудника
-     * @param firstName - идентификатор сотрудника
-     * @return UserUpdateView
+     * @param officeId - id офиса
+     * @param userParam - параметры сотрудника
+     * @param docCode - код документа
+     * @return List<User>
      */
-    List<User> getUsersList(Office officeById,
-                            String firstName,
-                            String lastName,
-                            String middleName,
-                            String position,
-                            String docCode,
-                            String citizenshipCode);
+    List<User> getUsersList(Long officeId ,User userParam, String docCode);
+
+    /**
+     * Обновление сотрудника
+     *
+     * @param user - параметры сотрудника
+     * @return void
+     */
+    void updateUser(UserView user, String docCOde);
+
+    /**
+     * Добавление сотрудника
+     *
+     * @param user - параметры сотрудника
+     * @param id
+     * @param doc
+     * @return void
+     */
+    void saveUser(UserView user, Long id, Document doc);
 }

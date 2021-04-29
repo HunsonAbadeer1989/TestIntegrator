@@ -1,6 +1,7 @@
 package com.integrator.test.office.service;
 
 import com.integrator.test.country.model.mapper.MapperFacade;
+import com.integrator.test.exception.OfficeException;
 import com.integrator.test.office.dao.OfficeDao;
 import com.integrator.test.office.model.Office;
 import com.integrator.test.office.view.OfficeForSaveView;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * {@inheritDoc}
@@ -67,4 +69,5 @@ public class OfficeServiceImpl implements OfficeService {
         Office saveOffice = mapperFacade.map(office, Office.class);
         officeDao.save(saveOffice, office.getOrgId());
     }
+
 }

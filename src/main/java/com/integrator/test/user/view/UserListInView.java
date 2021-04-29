@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 @Api(value = "Вид фильтра для формирования списока сотрудников")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,10 +20,12 @@ public class UserListInView {
     private Long officeId;
 
     @ApiModelProperty(value = "Имя сотрудника")
+    @NotNull
     private String firstName;
 
     @ApiModelProperty(value = "Фамилия сотрудника")
-    private String lastName;
+    @NotNull
+    private String secondName;
 
     @ApiModelProperty(value = "Отчество сотрудника")
     private String middleName;

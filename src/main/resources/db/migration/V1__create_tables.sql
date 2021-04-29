@@ -23,12 +23,30 @@ CREATE TABLE IF NOT EXISTS office (
 COMMENT ON TABLE office IS 'Офис';
 
 CREATE TABLE IF NOT EXISTS country (
-    id   INT COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     code VARCHAR(10) NOT NULL,
     name VARCHAR(100) NOT NULL
 );
 
 COMMENT ON TABLE country IS 'Страна';
+
+CREATE TABLE IF NOT EXISTS doc_type (
+	doc_code VARCHAR(2)   NOT NULL COMMENT 'Код вида документа',
+	doc_name VARCHAR(100) NOT NULL COMMENT 'Название документа'
+);
+
+COMMENT ON TABLE doc_type IS 'Тип документа';
+
+CREATE TABLE IF NOT EXISTS document (
+    doc_code VARCHAR(255) NOT NULL,
+    doc_number VARCHAR(255) NOT NULL,
+    doc_date   DATE        NOT NULL,
+
+    PRIMARY KEY (doc_code, doc_number),
+      CONSTRAINT FK_document_code FOREIGN KEY (doc_code) REFERENCES doc_type (doc_code)
+      ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+COMMENT ON TABLE document IS 'Документ';
 
 CREATE TABLE IF NOT EXISTS user (
     id          INTEGER COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
@@ -37,27 +55,14 @@ CREATE TABLE IF NOT EXISTS user (
     second_name VARCHAR(50) NOT NULL COMMENT 'Фамилия',
     middle_name VARCHAR(50) NOT NULL COMMENT 'Отчество',
     position    VARCHAR(50) NOT NULL COMMENT 'Должность',
+    doc_code VARCHAR(255) DEFAULT NULL COMMENT 'Код документа',
+    doc_number VARCHAR(255) DEFAULT NULL COMMENT 'Номер документа',
     phone       VARCHAR(50) COMMENT 'Телефон',
-    country_id  INTEGER  COMMENT 'Id страны',
-    doc_id      INTEGER  COMMENT 'Id документа',
-    is_identified BOOLEAN  COMMENT 'Идентификация'
+    citizenship_code  INTEGER DEFAULT NULL COMMENT 'Id страны',
+    is_identified BOOLEAN  COMMENT 'Идентификация',
+    CONSTRAINT FK_user_doc_code_doc_number FOREIGN KEY (doc_code, doc_number) REFERENCES document (doc_code, doc_number)
+      ON DELETE NO ACTION ON UPDATE NO ACTION
     );
 
 COMMENT ON TABLE user IS 'Сотрудник';
 
-CREATE TABLE IF NOT EXISTS document (
-    id         INT COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-    doc_number VARCHAR(30) NOT NULL,
-    doc_date   DATE        NOT NULL,
-    doc_type_id INT NOT NULL
-);
-
-COMMENT ON TABLE document IS 'Документ';
-
-CREATE TABLE IF NOT EXISTS doc_type (
-	id   INTEGER     COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(100) NOT NULL COMMENT 'Название документа',
-	code VARCHAR(2)   NOT NULL COMMENT 'Код вида документа'
-);
-
-COMMENT ON TABLE doc_type IS 'Тип документа';

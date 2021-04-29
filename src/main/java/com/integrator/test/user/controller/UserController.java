@@ -1,9 +1,9 @@
 package com.integrator.test.user.controller;
 
+import com.integrator.test.organization.view.ResultEntity;
+import com.integrator.test.user.model.User;
 import com.integrator.test.user.service.UserService;
-import com.integrator.test.user.view.UserListInView;
-import com.integrator.test.user.view.UserListOutView;
-import com.integrator.test.user.view.UserUpdateView;
+import com.integrator.test.user.view.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +27,28 @@ public class UserController {
 
     @ApiOperation(value = "Получение сотрудника по идентификатору", httpMethod = "GET")
     @GetMapping(value = "/{id}")
-    public UserUpdateView getUserById(@PathVariable Long id){
+    public UserView getUserById(@PathVariable Long id){
         return userService.getUserById(id);
     }
 
     @ApiOperation(value = "Получение списка сотрудников согласно параметрам", httpMethod = "POST")
     @PostMapping(value = "/list")
-    public List<UserListOutView> getListOfUsers(@RequestBody UserListInView userListInView){
+    public List<UserListOutView> getListOfUsers(@RequestBody UserView userListInView){
         return userService.getListOfUsers(userListInView);
+    }
+
+    @ApiOperation(value = "Обновление сотрудника", httpMethod = "POST")
+    @PostMapping(value = "/update")
+    public ResultEntity updateUser(@RequestBody UserView user){
+        userService.updateUser(user);
+        return new ResultEntity("success");
+    }
+
+    @ApiOperation(value = "Добавление сотрудника", httpMethod = "POST")
+    @PostMapping(value = "/save")
+    public ResultEntity saveUser(@RequestBody UserView user){
+        userService.saveUser(user);
+        return new ResultEntity("success");
     }
 
 }

@@ -29,7 +29,6 @@ public class CountryDaoImpl implements CountryDao {
      */
     @Override
     public List<Country> all() {
-        /* Get all countries by JPQL */
         String query = "SELECT c FROM Country c";
         TypedQuery<Country> all = entityManager.createQuery(query, Country.class);
         return all.getResultList();
@@ -39,7 +38,6 @@ public class CountryDaoImpl implements CountryDao {
      * {@inheritDoc}
      */
     @Override
-    /* Get one country by code through Criteria Api */
     public Country loadByCode(String code) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Country> criteriaQuery = criteriaBuilder.createQuery(Country.class);
@@ -52,14 +50,5 @@ public class CountryDaoImpl implements CountryDao {
         return query.getSingleResult();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Country getCountryById(Long id){
-        String query = "SELECT c FROM Country c WHERE id=:id";
-        TypedQuery<Country> all = entityManager.createQuery(query, Country.class);
-        return all.getSingleResult();
-    }
 
 }

@@ -1,6 +1,7 @@
 package com.integrator.test.organization.dao;
 
 import com.integrator.test.exception.OrganizationException;
+import com.integrator.test.exception.WrongInputException;
 import com.integrator.test.organization.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,11 +40,19 @@ public class OrganizationDaoImpl implements OrganizationDao{
         Root<Organization> org = tempQuery.from(Organization.class);
         tempQuery.select(org);
 
+        if (name.isBlank()) {
+            throw new OrganizationException("Не задано имя организации");
+        }
         Predicate predicate = cb.equal(org.get("name"), name);
-        if (inn.isBlank()){
+
+        if (!inn.isBlank()){
             predicate = cb.and(predicate, cb.equal(org.get("inn"), inn));
         }
-        if (active != null){
+
+        if (Objects.isNull(active)){
+            throw new WrongInputException("Не задан параметр активности организации");
+        }
+        else{
             predicate = cb.and(predicate, cb.equal(org.get("isActive"), active));
         }
         tempQuery.where(predicate);
@@ -58,6 +67,9 @@ public class OrganizationDaoImpl implements OrganizationDao{
     @Override
     @Transactional(readOnly = true)
     public Organization loadById(Long id) {
+        if(Objects.isNull(id)){
+            throw new OrganizationException("Не задан id организации");
+        }
         return entityManager.find(Organization.class, id);
     }
 
@@ -82,11 +94,13 @@ public class OrganizationDaoImpl implements OrganizationDao{
         if(!Objects.nonNull(newOrganization)){
             throw new OrganizationException("Нет организации с id=" + id);
         }
-        newOrganization.setAddress(organization.getAddress());
-        newOrganization.setFullName(organization.getFullName());
-        newOrganization.setInn(organization.getInn());
-        newOrganization.setKpp(organization.getKpp());
-        newOrganization.setName(organization.getName());
+        if(checkParams(organization)) {
+            newOrganization.setName(organization.getName());
+            newOrganization.setFullName(organization.getFullName());
+            newOrganization.setInn(organization.getInn());
+            newOrganization.setKpp(organization.getKpp());
+            newOrganization.setAddress(organization.getAddress());
+        }
         if (organization.getPhone().isBlank()) {
             newOrganization.setPhone(organization.getPhone());
         }
@@ -101,7 +115,28 @@ public class OrganizationDaoImpl implements OrganizationDao{
     @Override
     @Transactional
     public void save(Organization newOrg) {
-        entityManager.persist(newOrg);
+        if(checkParams(newOrg)){
+            entityManager.persist(newOrg);
+        }
+    }
+
+    public boolean checkParams(Organization org){
+        if(org.getName().isBlank()){
+            throw new WrongInputException("Не задано название организации");
+        }
+        if(org.getFullName().isBlank()){
+            throw new WrongInputException("Не задано полное название организации");
+        }
+        if(org.getInn().isBlank()){
+            throw new WrongInputException("Не задан ИНН организации");
+        }
+        if(org.getKpp().isBlank()){
+            throw new WrongInputException("Не задан КПП организации");
+        }
+        if(org.getAddress().isBlank()){
+            throw new WrongInputException("Не задан адрес организации");
+        }
+        return true;
     }
 
 }

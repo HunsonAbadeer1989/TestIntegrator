@@ -1,9 +1,10 @@
 package com.integrator.test.advice;
 
-import com.integrator.test.office.view.ErrorView;
 import com.integrator.test.exception.OfficeException;
 import com.integrator.test.exception.OrganizationException;
 import com.integrator.test.exception.UserException;
+import com.integrator.test.exception.WrongInputException;
+import com.integrator.test.office.view.ErrorView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,8 +34,8 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(errorView, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorView> wrongInput(UserException userException){
+    @ExceptionHandler(WrongInputException.class)
+    public ResponseEntity<ErrorView> wrongInput(WrongInputException userException){
         String ex = userException.getMessage();
         ErrorView errorView = new ErrorView(ex);
         return new ResponseEntity<>(errorView, HttpStatus.BAD_REQUEST);

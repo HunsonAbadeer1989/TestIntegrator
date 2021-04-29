@@ -63,13 +63,13 @@ public class OfficeDaoImpl implements OfficeDao {
         }
         Predicate mainPredicate = builder.equal(office.get("organization").get("id"), orgId);
 
-        if (name.isBlank()) {
+        if (!name.isBlank()) {
             Predicate officeName = builder.equal(office.get("name"), name);
             mainPredicate = builder.and(mainPredicate, officeName);
         }
 
-        if (phone.isBlank()) {
-            Predicate officePhone = builder.like(office.get("phone"), "%" + phone + "%");
+        if (!phone.isBlank()) {
+            Predicate officePhone = builder.equal(office.get("phone"), phone);
             mainPredicate = builder.and(mainPredicate, officePhone);
         }
 
@@ -93,18 +93,17 @@ public class OfficeDaoImpl implements OfficeDao {
         if (Objects.isNull(renewableOffice)) {
             throw new OfficeException("Нет офиса с id=" + id);
         }
-
-        if (!officeView.getName().isBlank()) {
+        if (officeView.getName().isBlank()) {
             throw new OfficeException("Не указано назввание офиса");
         }
         renewableOffice.setName(officeView.getName());
 
-        if (!officeView.getAddress().isBlank()) {
+        if (officeView.getAddress().isBlank()) {
             throw new OfficeException("Не указан адресс офиса");
         }
         renewableOffice.setAddress(officeView.getAddress());
 
-        if (officeView.getPhone().isBlank()) {
+        if (!officeView.getPhone().isBlank()) {
             renewableOffice.setPhone(officeView.getPhone());
         }
 

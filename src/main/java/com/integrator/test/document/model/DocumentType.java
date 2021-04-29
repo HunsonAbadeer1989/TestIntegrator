@@ -19,23 +19,18 @@ import javax.persistence.*;
 public class DocumentType {
 
     /**
-     * Первичный ключ
+     * Код документа
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "doc_code", nullable = false, length = 2, unique = true)
+    private Integer code;
 
     /**
      * Название документа
      */
-    @Column(nullable = false, length = 100)
+    @Column(name = "doc_name", nullable = false, length = 100, unique = true)
     private String name;
 
-    /**
-     * Код документа
-     */
-    @Column(nullable = false, length = 2)
-    private Integer code;
+
 
 }

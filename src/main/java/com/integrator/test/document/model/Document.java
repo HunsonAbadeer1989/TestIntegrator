@@ -1,33 +1,34 @@
 package com.integrator.test.document.model;
 
-import com.integrator.test.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Документ сотрудника
  */
 @Entity
-@Table(name = "document")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@IdClass(value = DocumentId.class)
 public class Document {
 
     /**
-     * Первичный ключ
+     * Код документа
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "doc_code", nullable = false, length = 255)
+    private String docCode;
 
     /**
      * Номер документа
      */
-    @Column(name = "doc_number", nullable = false, length = 30)
+    @Id
+    @Column(name = "doc_number", nullable = false, length = 255)
     private String docNumber;
 
     /**
@@ -35,14 +36,5 @@ public class Document {
      */
     @Column(name = "doc_date", nullable = false)
     private LocalDate docDate;
-
-
-
-    /**
-     * Поле связи с типом документа
-     */
-    @ManyToOne
-    @JoinColumn(name = "doc_type_id")
-    private DocumentType documentType;
 
 }
