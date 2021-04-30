@@ -40,16 +40,14 @@ public class OrganizationController {
 
     @ApiOperation(value = "Сохранить организацию", httpMethod = "POST")
     @PostMapping(value = "/save")
-    public ResultEntity saveOrganization(@RequestBody OrganizationView organizationView){
+    public void saveOrganization(@RequestBody OrganizationView organizationView){
         organizationService.saveOrganization(organizationView);
-        return  new ResultEntity("success");
     }
 
     @ApiOperation(value = "Редактировать организацию")
     @PostMapping(value = "/update")
-    public ResultEntity updateOrganization(Long id ,@RequestBody OrganizationView organizationView){
+    public void updateOrganization(Long id ,@RequestBody OrganizationView organizationView){
         organizationService.updateOrganization(id, organizationView);
-        return  new ResultEntity("success");
     }
 
 }

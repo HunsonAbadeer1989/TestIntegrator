@@ -39,16 +39,14 @@ public class UserController {
 
     @ApiOperation(value = "Обновление сотрудника", httpMethod = "POST")
     @PostMapping(value = "/update")
-    public ResultEntity updateUser(@RequestBody UserView user){
+    public void updateUser(@RequestBody UserView user){
         userService.updateUser(user);
-        return new ResultEntity("success");
     }
 
     @ApiOperation(value = "Добавление сотрудника", httpMethod = "POST")
     @PostMapping(value = "/save")
-    public ResultEntity saveUser(@RequestBody UserView user){
+    public void saveUser(@RequestBody UserView user){
         userService.saveUser(user);
-        return new ResultEntity("success");
     }
 
 }

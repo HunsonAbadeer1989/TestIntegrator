@@ -41,17 +41,15 @@ public class OfficeController {
 
     @ApiOperation(value = "Обновление офиса", httpMethod = "POST")
     @PostMapping(value = "/update")
-    public ResultEntity updateOffice(@RequestBody OfficeView officeView){
+    public void updateOffice(@RequestBody OfficeView officeView){
         Long id = officeView.getId();
         officeService.updateOffice(id ,officeView);
-        return new ResultEntity("success");
     }
 
     @ApiOperation(value = "Сохранение нового офиса", httpMethod = "POST")
     @PostMapping(value = "/save")
-    public ResultEntity saveOffice(@RequestBody OfficeForSaveView officeForSaveView){
+    public void saveOffice(@RequestBody OfficeForSaveView officeForSaveView){
         officeService.saveOffice(officeForSaveView);
-        return new ResultEntity("success");
     }
 
 }

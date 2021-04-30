@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ResultView {
+public class DataView {
 
     public Object data;
 }

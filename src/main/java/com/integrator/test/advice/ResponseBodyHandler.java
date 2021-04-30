@@ -2,7 +2,7 @@ package com.integrator.test.advice;
 
 import com.integrator.test.office.view.ErrorView;
 import com.integrator.test.organization.view.ResultEntity;
-import com.integrator.test.user.view.ResultView;
+import com.integrator.test.user.view.DataView;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -31,9 +31,9 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
         }
 
         if (methodParameter.getParameterType() == void.class) {
-            return new ResultView(new ResultEntity("success"));
+            return new DataView(new ResultEntity("success"));
         }
-
-        return new ResultView(o);
+        
+        return new DataView(o);
     }
 }
