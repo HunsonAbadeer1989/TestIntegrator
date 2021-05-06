@@ -70,6 +70,12 @@ public class OrganizationDaoImpl implements OrganizationDao{
         if(Objects.isNull(id)){
             throw new OrganizationException("Не задан id организации");
         }
+
+        Organization organization = entityManager.find(Organization.class, id);
+
+        if(Objects.isNull(organization)){
+            throw new OrganizationException("Нет организации с id = " + id);
+        }
         return entityManager.find(Organization.class, id);
     }
 
