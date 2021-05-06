@@ -34,13 +34,13 @@
 ### Изменение данных организации 
 
 ***Пример запроса***
-![Screenshot]()
+![Screenshot](https://github.com/HunsonAbadeer1989/TestIntegrator/blob/master/images/Organizations/Screenshot%202021-05-06%20at%2019.48.11.png)
 
 Запрос должен содержать объект JSON, используемый для изменения организации:
-![Screenshot]()
+![Screenshot](https://github.com/HunsonAbadeer1989/TestIntegrator/blob/master/images/Organizations/Screenshot%202021-05-06%20at%2019.48.22.png)
 
 Пример ответа от сервера, в результате ***успешного*** выполнения запроса:
-![Screenshot]()
+![Screenshot](https://github.com/HunsonAbadeer1989/TestIntegrator/blob/master/images/Organizations/Screenshot%202021-05-06%20at%2019.48.28.png)
 
 Пример ответа от сервера, при возникновении ***ошибки***:
 ![Screenshot]()
