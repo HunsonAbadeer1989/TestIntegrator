@@ -9,6 +9,7 @@
 
 ***Пример запроса***
 ![Screenshot](/Users/hunsonabadeer/GitHub/test/images/Organizations/Screenshot 2021-05-06 at 18.23.18.png)
+
 Запрос должен содержать объект JSON, используемый для поиска организаций:
 ![Screenshot](/Users/hunsonabadeer/GitHub/test/images/Organizations/Screenshot 2021-05-06 at 18.32.48.png)
 
@@ -29,3 +30,4 @@
 
 Пример ответа от сервера, при возникновении ***ошибки***:
 ![Screenshot](/Users/hunsonabadeer/GitHub/test/images/Organizations/Screenshot 2021-05-06 at 19.16.41.png)
+
