@@ -1,6 +1,5 @@
 package com.integrator.test.user.view;
 
-import com.integrator.test.user.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -52,11 +51,11 @@ public class UserView {
     @ApiModelProperty(value = "Дата выдачи документа сотруднику", name = "doc_date")
     private String docDate;
 
-    @ApiModelProperty(value = "Код документа")
-    private String docCode;
-
     @ApiModelProperty(value = "Код страны сотрудника")
     private String citizenshipCode;
+
+    @ApiModelProperty(value = "Название страны сотрудника")
+    private String citizenshipName;
 
     @ApiModelProperty(value = "Статус идентификации сотрудника")
     private Boolean isIdentified;

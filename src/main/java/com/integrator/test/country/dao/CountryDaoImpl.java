@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -33,22 +30,5 @@ public class CountryDaoImpl implements CountryDao {
         TypedQuery<Country> all = entityManager.createQuery(query, Country.class);
         return all.getResultList();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Country loadByCode(String code) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Country> criteriaQuery = criteriaBuilder.createQuery(Country.class);
-
-        Root<Country> countryRoot = criteriaQuery.from(Country.class);
-        criteriaQuery.where(countryRoot.get("code").in(code));
-        criteriaQuery.select(countryRoot);
-
-        TypedQuery<Country> query = entityManager.createQuery(criteriaQuery);
-        return query.getSingleResult();
-    }
-
 
 }

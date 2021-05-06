@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Страна сотрудника, граждансво
@@ -21,17 +18,21 @@ import javax.persistence.Table;
 @Setter
 public class Country {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
     /**
      * Код страны
      */
-    @Id
-    @Column(nullable = false, unique = true)
-    private String code;
+    @Column(name = "citizenship_code", nullable = false)
+    private String citizenshipCode;
 
     /**
      * Название страны
      */
-    @Column(nullable = false, length = 100)
-    private String name;
+    @Column(name = "citizenship_name", length = 100, nullable = false)
+    private String citizenshipName;
 
 }

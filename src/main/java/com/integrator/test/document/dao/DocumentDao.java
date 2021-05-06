@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DocumentDao extends JpaRepository<Document , String> {
 
-    Document findByDocCode(String code);
+    Document findByDocName(String docName);
 }

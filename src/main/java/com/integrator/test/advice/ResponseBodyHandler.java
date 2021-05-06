@@ -33,7 +33,7 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
         if (methodParameter.getParameterType() == void.class) {
             return new DataView(new ResultEntity("success"));
         }
-        
+
         return new DataView(o);
     }
 }

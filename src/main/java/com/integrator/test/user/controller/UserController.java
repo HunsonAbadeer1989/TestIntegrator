@@ -1,9 +1,8 @@
 package com.integrator.test.user.controller;
 
-import com.integrator.test.organization.view.ResultEntity;
-import com.integrator.test.user.model.User;
 import com.integrator.test.user.service.UserService;
-import com.integrator.test.user.view.*;
+import com.integrator.test.user.view.UserListOutView;
+import com.integrator.test.user.view.UserView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

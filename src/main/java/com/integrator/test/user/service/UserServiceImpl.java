@@ -5,14 +5,15 @@ import com.integrator.test.country.model.mapper.MapperFacade;
 import com.integrator.test.document.dao.DocumentDao;
 import com.integrator.test.document.dao.DocumentTypeDao;
 import com.integrator.test.document.model.Document;
-import com.integrator.test.document.model.DocumentType;
 import com.integrator.test.office.dao.OfficeDao;
 import com.integrator.test.user.dao.UserDao;
 import com.integrator.test.user.model.User;
-import com.integrator.test.user.view.*;
+import com.integrator.test.user.view.UserListOutView;
+import com.integrator.test.user.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -44,11 +45,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserView getUserById(Long id) {
         User userById = userDao.getUserById(id);
-        UserView userView = mapperFacade.map(userById, UserView.class);
+        UserView userView = new UserView();
+        userView.setOfficeId(userById.getOffice().getId());
+        userView.setId(userById.getId());
+        userView.setFirstName(userById.getFirstName());
+        userView.setSecondName(userById.getSecondName());
+        userView.setMiddleName(userById.getMiddleName());
+        userView.setPosition(userById.getPosition());
+        userView.setPhone(userById.getPhone());
+        userView.setDocName(userById.getDocument().getDocName());
         userView.setDocNumber(userById.getDocument().getDocNumber());
-        userView.setDocDate(userById.getDocument().getDocDate().toString());
-        DocumentType docType = documentTypeDao.findByCode(Integer.valueOf(userById.getDocument().getDocCode()));
-        userView.setDocName(docType.getName());
+        userView.setDocDate(LocalDate.now().toString());
+        userView.setCitizenshipCode(userById.getCitizenshipCode().getCitizenshipCode());
+        userView.setCitizenshipName(userById.getCitizenshipCode().getCitizenshipName());
+        userView.setIsIdentified(userById.getIsIdentified());
         return userView;
     }
 
@@ -59,7 +69,7 @@ public class UserServiceImpl implements UserService {
     public List<UserListOutView> getListOfUsers(UserView userListInView) {
         User user = mapperFacade.map(userListInView, User.class);
         Long officeId = userListInView.getOfficeId();
-        String code = userListInView.getDocCode();
+        String code = userListInView.getCitizenshipCode();
         List<User> usersList = userDao.getUsersList(officeId, user, code);
         return mapperFacade.mapAsList(usersList, UserListOutView.class);
     }
@@ -69,7 +79,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUser(UserView user) {
-        String code = user.getDocCode();
+        String code = user.getCitizenshipCode();
         userDao.updateUser(user, code);
     }
 
@@ -79,8 +89,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserView user) {
         Long id = user.getOfficeId();
-        Document document = documentDao.findByDocCode(user.getDocCode());
-//        User saveUser = mapperFacade.map(user, User.class);
+        Document document = documentDao.findByDocName(user.getDocName());
         userDao.saveUser(user, id, document);
     }
 }

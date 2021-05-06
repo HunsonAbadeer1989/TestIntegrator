@@ -28,11 +28,4 @@ public class CountryController {
         return countryService.getAllCountries();
     }
 
-    /* Нет в API, добавлен для примера запроса через Criteria API в DAO слое */
-    @ApiOperation(value = "получить страну по коду", httpMethod = "GET")
-    @GetMapping(value = "/byCode")
-    public CountryView getCountryByCode(@RequestParam String code) {
-        return countryService.getCountryByCode(code);
-    }
-
 }

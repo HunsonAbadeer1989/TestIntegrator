@@ -1,10 +1,7 @@
 package com.integrator.test.user.dao;
 
 import com.integrator.test.document.dao.DocumentDao;
-import com.integrator.test.document.dao.DocumentTypeDao;
 import com.integrator.test.document.model.Document;
-import com.integrator.test.document.model.DocumentId;
-import com.integrator.test.document.model.DocumentType;
 import com.integrator.test.exception.UserException;
 import com.integrator.test.exception.WrongInputException;
 import com.integrator.test.office.model.Office;
@@ -12,6 +9,7 @@ import com.integrator.test.user.model.User;
 import com.integrator.test.user.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -19,7 +17,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,19 +28,18 @@ public class UserDaoImpl implements UserDao {
 
     private final EntityManager entityManager;
     private final DocumentDao documentDao;
-    private final DocumentTypeDao documentTypeDao;
 
     @Autowired
-    public UserDaoImpl(EntityManager entityManager, DocumentTypeDao documentTypeDao, DocumentDao documentDao, DocumentTypeDao documentTypeDao1) {
+    public UserDaoImpl(EntityManager entityManager, DocumentDao documentDao) {
         this.entityManager = entityManager;
         this.documentDao = documentDao;
-        this.documentTypeDao = documentTypeDao1;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public User getUserById(Long id) {
         User user = entityManager.find(User.class, id);
         if (Objects.isNull(user)) {
@@ -78,13 +74,17 @@ public class UserDaoImpl implements UserDao {
         if (!user.getPosition().isBlank()) {
             mainPredicate = builder.and(mainPredicate, builder.equal(rootUser.get("position"), user.getPosition()));
         }
-        Document document = documentDao.findByDocCode(docCode);
-        if (Objects.nonNull(document)) {
-            mainPredicate = builder.and(mainPredicate, builder.equal(rootUser.get("document"), document));
+
+        if (user.getDocument() != null && user.getDocument().getDocType() != null && user.getDocument().getDocType().getCode() != null) {
+            mainPredicate = builder.and(mainPredicate,
+                    builder.like(rootUser.get("userDocument").get("documentType").get("docCode"),
+                            "%" + user.getDocument().getDocType().getCode() + "%"));
         }
-        if (!user.getCitizenshipCode().isBlank()) {
-            mainPredicate = builder.and(mainPredicate, builder.equal(rootUser.get("citizenshipCode"), user.getCitizenshipCode()));
+        if (user.getCitizenshipCode() != null && user.getCitizenshipCode().getCitizenshipCode() != null) {
+            mainPredicate = builder.and(mainPredicate, builder.like(rootUser.get("country").get("citizenshipCode"),
+                            "%" + user.getCitizenshipCode().getCitizenshipCode() + "%"));
         }
+
         criteriaQuery.where(mainPredicate);
 
         TypedQuery<User> query = entityManager.createQuery(criteriaQuery);
@@ -116,10 +116,6 @@ public class UserDaoImpl implements UserDao {
         }
         user.setIsIdentified(updUsr.getIsIdentified());
 
-        Document document = documentDao.findByDocCode(docCode);
-        if (!Objects.isNull(document)) {
-            user.setDocument(document);
-        }
     }
 
     @Override
@@ -132,8 +128,6 @@ public class UserDaoImpl implements UserDao {
         if (Objects.isNull(office)) {
             throw new UserException("Office not exist");
         }
-        checkDocCodeDoesAndDocNumber(userView.getDocCode(), userView.getDocNumber());
-        checkDocCodeAndDocNumberExist(userView.getDocCode(), userView.getDocNumber());
 
         User newUser = new User();
         newUser.setOffice(office);
@@ -142,32 +136,10 @@ public class UserDaoImpl implements UserDao {
         newUser.setMiddleName(userView.getMiddleName());
         newUser.setPhone(userView.getPhone());
         newUser.setDocument(doc);
-        newUser.setCitizenshipCode(userView.getCitizenshipCode());
         newUser.setPosition(userView.getPosition());
         newUser.setIsIdentified(userView.getIsIdentified());
 
         entityManager.persist(newUser);
     }
 
-    private void checkDocCodeDoesAndDocNumber(String docCode, String docNumber) {
-        if (Objects.isNull(docNumber)) {
-            throw new WrongInputException("docNumber не может быть null");
-        }
-        TypedQuery<DocumentType> query = entityManager.createQuery
-                ("select dt from DocumentType dt where dt.code = :code", DocumentType.class);
-        query.setParameter("code", Integer.valueOf(docCode));
-        try {
-            query.getSingleResult();
-        } catch (Exception e) {
-            throw new WrongInputException("Неверный код документа " + docCode);
-        }
-    }
-
-    private void checkDocCodeAndDocNumberExist(String docCode, String docNumber) {
-        DocumentId documentId = new DocumentId(docCode, docNumber);
-        Document document = entityManager.find(Document.class, documentId);
-        if (Objects.nonNull(document)) {
-            throw new WrongInputException("Документ с кодом " + docCode + " и номером " + docNumber + " существует");
-        }
-    }
 }

@@ -17,12 +17,4 @@ public interface CountryDao {
      */
     List<Country> all();
 
-    /**
-     * Получить название страны по коду
-     *
-     * @param code - код страны
-     * @return Country
-     */
-    Country loadByCode(String code);
-
 }

@@ -11,17 +11,9 @@ public interface CountryService {
 
     /**
      * Получить список стран
-     *
-     * @return
+     * void
+     * @return List<CountryView>
      */
     List<CountryView> getAllCountries();
-
-    /**
-     * Получить страну по коду
-     *
-     * @param code
-     * @return
-     */
-    CountryView getCountryByCode(String code);
 
 }

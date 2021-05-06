@@ -1,5 +1,6 @@
 package com.integrator.test.document.model;
 
+import com.integrator.test.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,27 +15,41 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@IdClass(value = DocumentId.class)
 public class Document {
+
+    @Id
+    private Long id;
 
     /**
      * Код документа
      */
-    @Id
-    @Column(name = "doc_code", nullable = false, length = 255)
-    private String docCode;
+    @Column(name = "doc_name", nullable = false, length = 255)
+    private String docName;
 
     /**
      * Номер документа
      */
-    @Id
     @Column(name = "doc_number", nullable = false, length = 255)
     private String docNumber;
 
     /**
      * Дата выдачи документа
      */
-    @Column(name = "doc_date", nullable = false)
+    @Column(name = "doc_date")
     private LocalDate docDate;
 
+    /**
+     * Пользователь, которому принадлежит документ
+     */
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    /**
+     * Тип документа
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doc_type_id", nullable = false)
+    private DocumentType docType;
 }

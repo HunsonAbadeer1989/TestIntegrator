@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -17,12 +19,10 @@ import java.util.List;
 public class CountryServiceImpl implements CountryService {
 
     private final CountryDao countryDao;
-    private final MapperFacade mapperFacade;
 
     @Autowired
-    public CountryServiceImpl(CountryDao countryDao, MapperFacade mapperFacade) {
+    public CountryServiceImpl(CountryDao countryDao) {
         this.countryDao = countryDao;
-        this.mapperFacade = mapperFacade;
     }
 
     /**
@@ -32,17 +32,16 @@ public class CountryServiceImpl implements CountryService {
     @Transactional(readOnly = true)
     public List<CountryView> getAllCountries() {
         List<Country> allCountries = countryDao.all();
-        return mapperFacade.mapAsList(allCountries, CountryView.class);
+        return allCountries.stream().map(mapCountry()).collect(Collectors.toList());
     }
 
-    /**
-     * @param code
-     * @return
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public CountryView getCountryByCode(String code) {
-        Country countryByCode = countryDao.loadByCode(code);
-        return mapperFacade.map(countryByCode, CountryView.class);
+    private Function<Country, CountryView> mapCountry() {
+        return country -> {
+            CountryView countryView = new CountryView();
+            countryView.setCode(country.getCitizenshipCode());
+            countryView.setName(country.getCitizenshipName());
+            return countryView;
+        };
     }
+
 }

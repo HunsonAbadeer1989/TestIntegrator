@@ -61,8 +61,9 @@ public class User {
     /**
      * Страна сотрудника, гражданство
      */
-    @Column(name = "citizenship_code", nullable = false)
-    private String citizenshipCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
+    private Country citizenshipCode;
 
     /**
      * Статус подтверждения документа сотрудника
@@ -73,11 +74,7 @@ public class User {
     /**
      * Документ сотрудника
      */
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({
-            @JoinColumn(name="doc_code", referencedColumnName = "doc_code"),
-            @JoinColumn(name="doc_number", referencedColumnName = "doc_number")
-    })
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Document document;
 
     /**

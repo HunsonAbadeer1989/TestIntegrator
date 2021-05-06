@@ -23,13 +23,15 @@ CREATE TABLE IF NOT EXISTS office (
 COMMENT ON TABLE office IS 'Офис';
 
 CREATE TABLE IF NOT EXISTS country (
-    code VARCHAR(10) NOT NULL,
-    name VARCHAR(100) NOT NULL
+    id      INTEGER COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+    citizenship_code VARCHAR(10) NOT NULL COMMENT 'Код страны',
+    citizenship_name VARCHAR(100) NOT NULL COMMENT 'Название страны'
 );
 
 COMMENT ON TABLE country IS 'Страна';
 
 CREATE TABLE IF NOT EXISTS doc_type (
+    id INTEGER COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
 	doc_code VARCHAR(2)   NOT NULL COMMENT 'Код вида документа',
 	doc_name VARCHAR(100) NOT NULL COMMENT 'Название документа'
 );
@@ -37,13 +39,11 @@ CREATE TABLE IF NOT EXISTS doc_type (
 COMMENT ON TABLE doc_type IS 'Тип документа';
 
 CREATE TABLE IF NOT EXISTS document (
-    doc_code VARCHAR(255) NOT NULL,
+    user_id     INTEGER COMMENT 'Уникальный идентификатор пользователя, которому принадлежит документ' PRIMARY KEY,
+    doc_name  VARCHAR(255) NOT NULL,
     doc_number VARCHAR(255) NOT NULL,
-    doc_date   DATE        NOT NULL,
-
-    PRIMARY KEY (doc_code, doc_number),
-      CONSTRAINT FK_document_code FOREIGN KEY (doc_code) REFERENCES doc_type (doc_code)
-      ON DELETE NO ACTION ON UPDATE NO ACTION
+    doc_date   DATE,
+    doc_type_id INTEGER   COMMENT 'Уникальный идентификатор типа документа'
 );
 
 COMMENT ON TABLE document IS 'Документ';
@@ -55,13 +55,9 @@ CREATE TABLE IF NOT EXISTS user (
     second_name VARCHAR(50) NOT NULL COMMENT 'Фамилия',
     middle_name VARCHAR(50) NOT NULL COMMENT 'Отчество',
     position    VARCHAR(50) NOT NULL COMMENT 'Должность',
-    doc_code VARCHAR(255) DEFAULT NULL COMMENT 'Код документа',
-    doc_number VARCHAR(255) DEFAULT NULL COMMENT 'Номер документа',
     phone       VARCHAR(50) COMMENT 'Телефон',
-    citizenship_code  INTEGER DEFAULT NULL COMMENT 'Id страны',
-    is_identified BOOLEAN  COMMENT 'Идентификация',
-    CONSTRAINT FK_user_doc_code_doc_number FOREIGN KEY (doc_code, doc_number) REFERENCES document (doc_code, doc_number)
-      ON DELETE NO ACTION ON UPDATE NO ACTION
+    country_id  INTEGER  COMMENT 'Id страны',
+    is_identified BOOLEAN  COMMENT 'Идентификация'
     );
 
 COMMENT ON TABLE user IS 'Сотрудник';
